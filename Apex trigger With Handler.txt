@@ -1,0 +1,39 @@
+Apex trigger With Handler:
+
+
+public class FoodOptionTriggerHandler {
+    
+    // Correct method signature
+    public static void updateHotelInformation(List<Food_Option__c> foodOptions) {
+        // Logic to update hotel information based on food options
+        
+        Set<Id> hotelIds = new Set<Id>();
+        
+        // Gather hotel IDs associated with the food options
+        for (Food_Option__c foodOption : foodOptions) {
+            if (foodOption.Hotel__c != null) {
+                hotelIds.add(foodOption.Hotel__c);
+            }
+        }
+
+        // If we have hotel IDs, update the hotels
+        if (!hotelIds.isEmpty()) {
+            List<Hotel__c> hotelsToUpdate = [SELECT Id, Name FROM Hotel__c WHERE Id IN :hotelIds];
+            
+            // Logic to update the hotel records based on the food options
+            for (Hotel__c hotel : hotelsToUpdate) {
+                // Update the hotel information as required
+                // Example: hotel.Last_Food_Option_Updated__c = Date.today();
+            }
+            // Perform the update DML operation
+            if (!hotelsToUpdate.isEmpty()) {
+                update hotelsToUpdate;
+            }
+        }
+    }
+    
+    // Optional: Deletion handler if needed
+    public static void handleDeletion(List<Food_Option__c> foodOptions) {
+        // Logic for handling deletions, if necessary
+    }
+}

@@ -1,0 +1,14 @@
+trigger FoodOptionTrigger on Food_Option__c (after insert, after update, after delete) {
+
+    // After insert or update, update hotel information
+    if (Trigger.isInsert || Trigger.isUpdate) {
+        if (Trigger.isAfter) {
+            FoodOptionTriggerHandler.updateHotelInformation(Trigger.new);
+        }
+    }
+
+    // Optionally handle deletions (if needed)
+    if (Trigger.isDelete && Trigger.isAfter) {
+        FoodOptionTriggerHandler.handleDeletion(Trigger.old);
+    }
+}

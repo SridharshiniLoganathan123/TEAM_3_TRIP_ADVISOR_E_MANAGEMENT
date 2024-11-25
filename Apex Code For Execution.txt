@@ -1,0 +1,9 @@
+Apex Code For Execution:
+
+
+// Schedule the job to run every day at a specific time (e.g., 6 AM)
+
+String cronExp = '0 0 6 * * ?';
+
+
+System.schedule('FlightReminderJob', cronExp, new FlightReminderScheduledJob());
